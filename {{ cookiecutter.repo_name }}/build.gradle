@@ -2,10 +2,10 @@ import groovy.json.JsonSlurper
 
 buildscript {
   ext.shadowPluginVersion = '1.2.3'
-  {% if cookiecutter.jvm_language == "kotlin" %}
-  ext.kotlinVersion = '1.0.3'
-  {% endif %}
-
+  {%- if cookiecutter.jvm_language == "kotlin" %}
+  ext.kotlinVersion = '1.0.5'
+  {% endif -%}
+  
   repositories {
     jcenter()
   }
@@ -34,20 +34,19 @@ group   = '{{ cookiecutter.project_package }}'
 version = datawireInfo.service.version
 
 ext {
-  assertjVersion = '3.5.1'
-  datawireMdkVersion = '2.0.11'
-  junitVersion   = '4.12'
-  logbackVersion = '1.1.7'
-  vertxVersion   = '3.3.2'
+  assertjVersion     = '3.5.1'
+  datawireMdkVersion = '2.0.35'
+  junitVersion       = '4.12'
+  logbackVersion     = '1.1.7'
+  vertxVersion       = '3.3.3'
 }
 
 apply plugin: 'java'
-
-{% if cookiecutter.jvm_language == "kotlin" %}
+{%- if cookiecutter.jvm_language == "kotlin" %}
 apply plugin: 'kotlin'
 {% elif cookiecutter.jvm_language == "groovy" %}
 apply plugin: 'groovy'
-{% endif %}
+{% endif -%}
 
 repositories {
   jcenter()
@@ -62,11 +61,11 @@ dependencies {
   compile group: "io.vertx",       name: "vertx-core",      version: vertxVersion
   compile group: "io.vertx",       name: "vertx-web",       version: vertxVersion
 
-  {% if cookiecutter.jvm_language == "kotlin" %}
+  {%- if cookiecutter.jvm_language == "kotlin" %}
   compile group: "org.jetbrains.kotlin", name: "kotlin-stdlib", version: kotlinVersion
   {% elif cookiecutter.jvm_language == "groovy" %}
   compile group: "org.codehaus.groovy", name: "groovy-all", version: '2.4.7'
-  {% endif %}
+  {% endif -%}
 
   testCompile group: "io.vertx",    name: "vertx-unit",   version: vertxVersion
   testCompile group: 'org.assertj', name: 'assertj-core', version: assertjVersion
